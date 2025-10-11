@@ -36,6 +36,7 @@ const Index = () => {
         <div className="max-w-7xl mx-auto text-center">
           <div className="flex justify-center mb-8">
             <div className="flex items-center space-x-3">
+              
               <Briefcase className="h-12 w-12 text-primary" />
               <span className="text-4xl font-bold text-foreground">JobLinker</span>
             </div>
