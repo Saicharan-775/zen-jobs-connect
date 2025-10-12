@@ -2,8 +2,11 @@ import { Link } from 'react-router-dom';
 import { Briefcase, Users, Award, ArrowRight, CheckCircle, Star, Trophy } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { motion } from 'framer-motion';
+import { playSound } from '@/utils/sound';
 
 const Index = () => {
+
   const features = [
     {
       icon: Users,
@@ -32,50 +35,85 @@ const Index = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto text-center">
-          <div className="flex justify-center mb-8">
+      <section className="relative py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-primary/10 via-secondary/10 to-accent/10 dark:from-primary/20 dark:via-secondary/20 dark:to-accent/20">
+        <motion.div
+          className="max-w-7xl mx-auto text-center relative z-10"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <motion.div
+            className="flex justify-center mb-8"
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ delay: 0.2, duration: 0.5 }}
+          >
             <div className="flex items-center space-x-3">
-              
               <Briefcase className="h-12 w-12 text-primary" />
               <span className="text-4xl font-bold text-foreground">JobLinker</span>
             </div>
-          </div>
-          
-          <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-6">
+          </motion.div>
+
+          <motion.h1
+            className="text-5xl md:text-6xl font-bold text-foreground mb-6"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4, duration: 0.8 }}
+          >
             Connect Talent with
             <span className="text-primary block">Opportunity</span>
-          </h1>
-          
-          <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
-            The smart platform where talented professionals meet innovative companies. 
+          </motion.h1>
+
+          <motion.p
+            className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.6, duration: 0.8 }}
+          >
+            The smart platform where talented professionals meet innovative companies.
             Showcase your skills, discover opportunities, and grow your career.
-          </p>
-          
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
-            <Link to="/signup">
-              <Button className="btn-primary text-lg px-8 py-3">
+          </motion.p>
+
+          <motion.div
+            className="flex flex-col sm:flex-row gap-4 justify-center mb-16"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8, duration: 0.6 }}
+          >
+            <Link to="/auth" state={{ mode: 'signup' }}>
+              <Button className="btn-primary text-lg px-8 py-3 hover:scale-105 transition-transform" onMouseEnter={() => playSound('hover')}>
                 Get Started
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
-            <Link to="/login">
-              <Button variant="outline" className="text-lg px-8 py-3">
+            <Link to="/auth" state={{ mode: 'login' }}>
+              <Button variant="outline" className="text-lg px-8 py-3 hover:scale-105 transition-transform" onMouseEnter={() => playSound('hover')}>
                 Sign In
               </Button>
             </Link>
-          </div>
+          </motion.div>
 
           {/* Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
+          <motion.div
+            className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1, duration: 0.8 }}
+          >
             {stats.map((stat, index) => (
-              <div key={index} className="text-center">
+              <motion.div
+                key={index}
+                className="text-center"
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ delay: 1.2 + index * 0.1, duration: 0.5 }}
+              >
                 <div className="text-3xl font-bold text-primary mb-2">{stat.number}</div>
                 <div className="text-muted-foreground">{stat.label}</div>
-              </div>
+              </motion.div>
             ))}
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </section>
 
       {/* Features Section */}
@@ -120,13 +158,13 @@ const Index = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/signup">
-              <Button className="btn-primary text-lg px-8 py-3">
+            <Link to="/auth" state={{ mode: 'signup' }}>
+              <Button className="btn-primary text-lg px-8 py-3" onMouseEnter={() => playSound('hover')}>
                 Start Your Journey
               </Button>
             </Link>
             <Link to="/dashboard">
-              <Button variant="outline" className="text-lg px-8 py-3">
+              <Button variant="outline" className="text-lg px-8 py-3" onMouseEnter={() => playSound('hover')}>
                 View Demo Dashboard
               </Button>
             </Link>
