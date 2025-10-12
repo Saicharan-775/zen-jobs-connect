@@ -25,6 +25,7 @@ export default function ResumeUpload() {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [resumeUploaded, setResumeUploaded] = useState(false);
+  const [showAnalysis, setShowAnalysis] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -43,7 +44,13 @@ export default function ResumeUpload() {
 
   const handleResumeUploaded = () => {
     setResumeUploaded(true);
+    setShowAnalysis(true);
     playSound('success');
+  };
+
+  const handleResumeRemoved = () => {
+    setResumeUploaded(false);
+    setShowAnalysis(false);
   };
 
   if (loading) {
@@ -107,7 +114,7 @@ export default function ResumeUpload() {
         </motion.div>
 
         {/* Main Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12 h-[600px]">
           {/* Resume Uploader */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -124,7 +131,7 @@ export default function ResumeUpload() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <ResumeUploader onResumeUploaded={handleResumeUploaded} />
+                <ResumeUploader onResumeUploaded={handleResumeUploaded} onResumeRemoved={handleResumeRemoved} />
               </CardContent>
             </Card>
           </motion.div>
@@ -157,14 +164,14 @@ export default function ResumeUpload() {
                       <Target className="h-16 w-16 text-primary/60" />
                     </div>
                     <h3 className="text-xl font-semibold text-foreground mb-3">
-                      Upload Your Resume to Unlock AI Insights
+                      Upload Resume
                     </h3>
                     <p className="text-muted-foreground mb-6 max-w-md">
-                      Get personalized career advice, skill recommendations, and job matching suggestions tailored to your profile.
+                      Upload your resume to get personalized AI career insights and recommendations.
                     </p>
                     <div className="flex items-center space-x-2 text-sm text-muted-foreground">
                       <Lightbulb className="h-4 w-4" />
-                      <span>AI-powered career guidance awaits</span>
+                      <span>AI analysis awaits</span>
                     </div>
                   </motion.div>
                 )}
@@ -173,33 +180,7 @@ export default function ResumeUpload() {
           </motion.div>
         </div>
 
-        {/* Success Message and Navigation */}
-        {resumeUploaded && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6 }}
-            className="text-center"
-          >
-            <div className="bg-gradient-to-r from-green-500/10 to-emerald-500/10 border border-green-500/20 rounded-lg p-6 mb-8">
-              <div className="flex items-center justify-center space-x-2 text-green-600 dark:text-green-400 mb-2">
-                <Sparkles className="h-5 w-5" />
-                <span className="font-semibold">Resume uploaded successfully!</span>
-              </div>
-              <p className="text-muted-foreground">
-                Your AI analysis is ready. Explore your personalized recommendations above.
-              </p>
-            </div>
-            <Button
-              onClick={() => navigate('/dashboard')}
-              className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-primary-foreground px-8 py-3 text-lg shadow-lg hover:shadow-xl transition-all duration-200"
-              size="lg"
-            >
-              <span>Continue to Dashboard</span>
-              <ArrowRight className="h-5 w-5 ml-2" />
-            </Button>
-          </motion.div>
-        )}
+
       </div>
     </div>
   );

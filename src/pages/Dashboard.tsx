@@ -13,6 +13,8 @@ import { playSound } from '@/utils/sound';
 import JobFeed from '@/components/dashboard/JobFeed';
 import ApplicationTracker from '@/components/dashboard/ApplicationTracker';
 import CandidateDashboard from '@/components/dashboard/CandidateDashboard';
+import LearningHub from '@/components/dashboard/LearningHub';
+import Leaderboard from '@/components/dashboard/Leaderboard';
 
 interface User {
   id: string;
@@ -110,33 +112,55 @@ export default function Dashboard() {
         </motion.div>
 
         {/* Dashboard Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-1 gap-6">
-          {/* Main Dashboard Components */}
-          <div className="space-y-6">
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
+          {/* Left Column - Learning Hub */}
+          <div className="xl:col-span-2 space-y-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
             >
-              <CandidateDashboard />
+              <LearningHub />
             </motion.div>
+          </div>
 
+          {/* Right Column - Leaderboard */}
+          <div className="xl:col-span-1 space-y-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
             >
-              <JobFeed />
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-            >
-              <ApplicationTracker />
+              <Leaderboard />
             </motion.div>
           </div>
+        </div>
+
+        {/* Bottom Section - Other Components */}
+        <div className="grid grid-cols-1 gap-6 mt-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+          >
+            <CandidateDashboard />
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+          >
+            <JobFeed />
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+          >
+            <ApplicationTracker />
+          </motion.div>
         </div>
       </div>
     </div>

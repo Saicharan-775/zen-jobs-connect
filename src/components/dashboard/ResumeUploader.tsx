@@ -39,7 +39,7 @@ interface PDFTextItem {
   str: string;
 }
 
-const ResumeUploader: React.FC<ResumeUploaderProps> = ({ onSkillsExtracted, onResumeUploaded }) => {
+const ResumeUploader: React.FC<ResumeUploaderProps> = ({ onSkillsExtracted, onResumeUploaded, onResumeRemoved }) => {
   const [resumeUploaded, setResumeUploaded] = useState(false);
   const [analyzing, setAnalyzing] = useState(false);
   const [analysisComplete, setAnalysisComplete] = useState(false);
@@ -147,12 +147,20 @@ const ResumeUploader: React.FC<ResumeUploaderProps> = ({ onSkillsExtracted, onRe
     }
   };
 
+  const handleAnalyzeClick = () => {
+    if (resumeUploaded) {
+      // Trigger AI Mentor to show suggestions
+      // This will be handled by the parent component
+    }
+  };
+
   const handleRemoveFile = () => {
     setSelectedFile(null);
     setFileName('');
     setResumeUploaded(false);
     setAnalyzing(false);
     setAnalysisComplete(false);
+    onResumeRemoved?.();
   };
 
   return (

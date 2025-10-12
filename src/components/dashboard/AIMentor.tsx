@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { aiMentorSuggestions, AIMentorSuggestion } from '@/data/dashboard';
 
 const AIMentor: React.FC = () => {
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState(true);
 
   const getTypeIcon = (type: AIMentorSuggestion['type']) => {
     switch (type) {
