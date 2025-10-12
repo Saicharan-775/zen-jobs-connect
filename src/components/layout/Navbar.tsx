@@ -19,6 +19,7 @@ import { playSound } from '@/utils/sound';
 const navigation = [
   { name: 'Jobs', href: '/jobs' },
   { name: 'Talent Programs', href: '/talent-programs' },
+  { name: 'Resume Analysis', href: '/resume-upload' },
   { name: 'Dashboard', href: '/dashboard' },
 ];
 

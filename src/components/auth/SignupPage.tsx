@@ -74,17 +74,14 @@ export default function SignupPage() {
             lastName: formData.lastName,
             role: selectedRole,
           },
+          emailRedirectTo: `${window.location.origin}/resume-upload`,
         },
       });
 
       if (error) throw error;
 
       playSound('success');
-      toast({
-        title: "Account created!",
-        description: "Please check your email to verify your account.",
-      });
-      navigate('/transition');
+      navigate('/email-verification');
     } catch (error) {
       toast({
         title: "Signup failed",

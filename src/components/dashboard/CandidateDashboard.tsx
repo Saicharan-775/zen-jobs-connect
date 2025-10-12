@@ -50,25 +50,7 @@ export default function CandidateDashboard() {
           </p>
         </div>
 
-        {/* Theme Toggle */}
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-          className="flex items-center gap-2"
-        >
-          {theme === 'dark' ? (
-            <>
-              <Sun className="h-4 w-4" />
-              Light Mode
-            </>
-          ) : (
-            <>
-              <Moon className="h-4 w-4" />
-              Dark Mode
-            </>
-          )}
-        </Button>
+        
       </motion.div>
 
       {/* Quick Stats */}

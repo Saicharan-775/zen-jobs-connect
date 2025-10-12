@@ -10,6 +10,7 @@ import Jobs from "./pages/jobs/Jobs";
 import NotFound from "./pages/NotFound";
 import AuthPage from "./pages/AuthPage";
 import ForgotPassword from "./components/auth/ForgotPassword";
+import EmailVerificationPending from "./components/auth/EmailVerificationPending";
 import Dashboard from "./pages/Dashboard";
 import TransitionScreen from "./pages/TransitionScreen";
 import ResumeUpload from "./pages/ResumeUpload";
@@ -65,12 +66,10 @@ const App = () => {
             <Route path="/login" element={user ? <Navigate to="/dashboard" replace /> : <AuthPage />} />
             <Route path="/signup" element={user ? <Navigate to="/dashboard" replace /> : <AuthPage />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/email-verification" element={<EmailVerificationPending />} />
 
             {/* Transition Route */}
             <Route path="/transition" element={<TransitionScreen />} />
-
-            {/* Resume Upload Route */}
-            <Route path="/resume-upload" element={<ProtectedRoute><ResumeUpload /></ProtectedRoute>} />
 
             {/* Main App Routes with Layout */}
             <Route path="/" element={<Layout />}>
@@ -81,6 +80,7 @@ const App = () => {
               <Route path="dashboard/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
               <Route path="jobs" element={<ProtectedRoute><Jobs /></ProtectedRoute>} />
               <Route path="talent-programs" element={<ProtectedRoute><TalentPrograms /></ProtectedRoute>} />
+              <Route path="resume-upload" element={<ProtectedRoute><ResumeUpload /></ProtectedRoute>} />
             </Route>
 
             {/* Catch-all route */}

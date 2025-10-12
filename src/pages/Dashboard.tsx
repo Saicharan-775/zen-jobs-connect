@@ -84,13 +84,13 @@ export default function Dashboard() {
           animate={{ opacity: 1, y: 0 }}
           className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8"
         >
-          <div className="flex items-center space-x-4 mb-4 md:mb-0">
+          {/* <div className="flex items-center space-x-4 mb-4 md:mb-0">
             <div className="flex items-center space-x-2">
               <Briefcase className="h-8 w-8 text-primary" />
               <span className="text-2xl font-bold text-foreground">JobLinker Dashboard</span>
             </div>
-          </div>
-          <div className="flex items-center space-x-4">
+          </div> */}
+          {/* <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-2">
               <Avatar className="h-8 w-8">
                 <AvatarFallback className="text-sm">{initials}</AvatarFallback>
@@ -106,7 +106,7 @@ export default function Dashboard() {
               <LogOut className="h-4 w-4" />
               <span>Logout</span>
             </Button>
-          </div>
+          </div> */}
         </motion.div>
 
         {/* Dashboard Grid */}
