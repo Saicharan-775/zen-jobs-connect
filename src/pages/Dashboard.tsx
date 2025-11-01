@@ -80,61 +80,7 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen bg-background py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8"
-        >
-          {/* <div className="flex items-center space-x-4 mb-4 md:mb-0">
-            <div className="flex items-center space-x-2">
-              <Briefcase className="h-8 w-8 text-primary" />
-              <span className="text-2xl font-bold text-foreground">JobLinker Dashboard</span>
-            </div>
-          </div> */}
-          {/* <div className="flex items-center space-x-4">
-            <div className="flex items-center space-x-2">
-              <Avatar className="h-8 w-8">
-                <AvatarFallback className="text-sm">{initials}</AvatarFallback>
-              </Avatar>
-              <span className="text-sm font-medium">{fullName || 'User'}</span>
-            </div>
-            <Button
-              onClick={handleLogout}
-              variant="outline"
-              size="sm"
-              className="flex items-center space-x-2"
-            >
-              <LogOut className="h-4 w-4" />
-              <span>Logout</span>
-            </Button>
-          </div> */}
-        </motion.div>
-
-        {/* Dashboard Grid */}
-        <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
-          {/* Left Column - Learning Hub */}
-          <div className="xl:col-span-2 space-y-6">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-            >
-              <LearningHub />
-            </motion.div>
-          </div>
-
-          {/* Right Column - Leaderboard */}
-          <div className="xl:col-span-1 space-y-6">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-            >
-              <Leaderboard />
-            </motion.div>
-          </div>
-        </div>
+        
 
         {/* Bottom Section - Other Components */}
         <div className="grid grid-cols-1 gap-6 mt-8">
