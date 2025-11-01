@@ -90,11 +90,12 @@ export default function TalentPrograms() {
         </motion.div>
 
         {/* Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 h-[600px]">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
+            className="lg:col-span-2"
           >
             <LearningHub />
           </motion.div>
@@ -103,6 +104,7 @@ export default function TalentPrograms() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
+            className="lg:col-span-1"
           >
             <Leaderboard />
           </motion.div>

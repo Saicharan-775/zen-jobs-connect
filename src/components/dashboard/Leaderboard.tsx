@@ -1,179 +1,165 @@
-import React from 'react';
 import { motion } from 'framer-motion';
-import { Trophy, Medal, Award, TrendingUp } from 'lucide-react';
+import { Trophy, TrendingUp, Award, Crown } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { leaderboardUsers, LeaderboardUser } from '@/data/dashboard';
+import { leaderboardUsers, type LeaderboardUser } from '@/data/dashboard';
 
-const Leaderboard: React.FC = () => {
+const Leaderboard = () => {
   const getRankIcon = (rank: number) => {
     switch (rank) {
       case 1:
-        return (
-          <motion.span
-            className="text-xl font-bold text-yellow-500"
-            animate={{ scale: [1, 1.2, 1] }}
-            transition={{ repeat: Infinity, duration: 2 }}
-          >
-            1st
-          </motion.span>
-        );
+        return <Crown className="h-5 w-5 text-yellow-500" />;
       case 2:
-        return (
-          <motion.span
-            className="text-xl font-bold text-gray-400"
-            animate={{ scale: [1, 1.1, 1] }}
-            transition={{ repeat: Infinity, duration: 2.5 }}
-          >
-            2nd
-          </motion.span>
-        );
+        return <Award className="h-5 w-5 text-gray-400" />;
       case 3:
-        return (
-          <motion.span
-            className="text-xl font-bold text-orange-600"
-            animate={{ scale: [1, 1.1, 1] }}
-            transition={{ repeat: Infinity, duration: 3 }}
-          >
-            3rd
-          </motion.span>
-        );
+        return <Award className="h-5 w-5 text-amber-600" />;
       default:
-        return <span className="text-lg font-bold text-muted-foreground">#{rank}</span>;
+        return <span className="text-sm font-bold text-muted-foreground">#{rank}</span>;
     }
   };
 
-  const getRankColor = (rank: number) => {
+  const getRankBadgeColor = (rank: number) => {
     switch (rank) {
       case 1:
-        return 'border-yellow-500 bg-gradient-to-b from-yellow-100 to-yellow-200 dark:from-yellow-900 dark:to-yellow-800 shadow-lg'; // Gold
+        return 'bg-gradient-to-br from-yellow-100 to-yellow-200 dark:from-yellow-900/40 dark:to-yellow-800/40 border-yellow-300 dark:border-yellow-700';
       case 2:
-        return 'border-gray-300 bg-gradient-to-b from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-600 shadow-md'; // Silver
+        return 'bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-700/40 dark:to-gray-600/40 border-gray-300 dark:border-gray-600';
       case 3:
-        return 'border-orange-600 bg-gradient-to-b from-orange-100 to-orange-200 dark:from-orange-900 dark:to-orange-800 shadow-md'; // Bronze
+        return 'bg-gradient-to-br from-amber-100 to-amber-200 dark:from-amber-900/40 dark:to-amber-800/40 border-amber-300 dark:border-amber-700';
       default:
-        return 'border-border bg-card hover:bg-accent/5 dark:hover:bg-accent/10';
+        return 'bg-muted/30 border-border';
     }
   };
 
   return (
-    <Card className="card-elevated">
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <TrendingUp className="h-5 w-5 text-primary" />
-          Leaderboard
+    <Card className="h-full flex flex-col">
+      <CardHeader className="pb-4">
+        <CardTitle className="flex items-center gap-2 text-xl">
+          <div className="p-1.5 bg-primary/10 rounded-lg">
+            <TrendingUp className="h-5 w-5 text-primary" />
+          </div>
+          <span>Leaderboard</span>
         </CardTitle>
       </CardHeader>
-      <CardContent>
+      
+      <CardContent className="flex-1 overflow-auto space-y-6 px-6 pb-6">
         {/* Top 3 Podium */}
-        <div className="grid grid-cols-3 gap-4 mb-8">
-          {leaderboardUsers.slice(0, 3).map((user, index) => {
-            const podiumOrder = [1, 0, 2]; // 2nd, 1st, 3rd for visual podium
-            const podiumUser = leaderboardUsers[podiumOrder[index]];
-            return (
+        <div className="space-y-3">
+          <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+            Top Performers
+          </h3>
+          <div className="space-y-2">
+            {leaderboardUsers.slice(0, 3).map((user, index) => (
               <motion.div
-                key={podiumUser.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.2 }}
-                className={`flex flex-col items-center justify-between p-4 rounded-lg border ${getRankColor(podiumUser.rank)} hover:shadow-md transition-shadow h-40`}
+                key={user.id}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: index * 0.1 }}
+                className={`flex items-center gap-3 p-3 rounded-lg border ${getRankBadgeColor(user.rank)} hover:shadow-md transition-all`}
               >
-                <div className="flex flex-col items-center">
-                  <Avatar className="h-12 w-12 mb-2">
-                    <AvatarImage src={podiumUser.avatar} alt={podiumUser.name} />
-                    <AvatarFallback>{podiumUser.name[0]}</AvatarFallback>
-                  </Avatar>
-                  <div className="text-center">
-                    <h3 className="font-medium text-foreground text-sm truncate max-w-full mb-1">{podiumUser.name}</h3>
-                    <div className="flex items-center justify-center gap-1 mb-1">
-                      {getRankIcon(podiumUser.rank)}
-                    </div>
-                    <span className="text-sm text-muted-foreground mb-2">{podiumUser.points} pts</span>
-                    {podiumUser.badges.length > 0 && (
-                      <div className="flex justify-center">
-                        <Badge variant="default" className="text-xs bg-primary text-primary-foreground">
-                          {podiumUser.badges[0]}
-                        </Badge>
-                      </div>
+                <div className="flex items-center justify-center w-8 flex-shrink-0">
+                  {getRankIcon(user.rank)}
+                </div>
+
+                <Avatar className="h-10 w-10 border-2 border-background">
+                  <AvatarImage src={user.avatar} alt={user.name} />
+                  <AvatarFallback className="text-xs">{user.name[0]}</AvatarFallback>
+                </Avatar>
+
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 mb-1">
+                    <h4 className="font-semibold text-sm text-foreground truncate">{user.name}</h4>
+                    {user.badges.length > 0 && (
+                      <Badge variant="secondary" className="text-xs px-1.5 py-0">
+                        {user.badges[0]}
+                      </Badge>
                     )}
+                  </div>
+                  <p className="text-xs text-muted-foreground font-medium">{user.points} points</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        {/* Rest of Leaderboard */}
+        <div className="space-y-3">
+          <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+            Other Rankings
+          </h3>
+          <div className="space-y-2">
+            {leaderboardUsers.slice(3).map((user, index) => (
+              <motion.div
+                key={user.id}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: (index + 3) * 0.05 }}
+                className="flex items-center gap-3 p-3 rounded-lg border border-border bg-card hover:bg-muted/30 hover:border-primary/20 transition-all"
+              >
+                <div className="flex items-center justify-center w-8 flex-shrink-0">
+                  {getRankIcon(user.rank)}
+                </div>
+
+                <Avatar className="h-9 w-9">
+                  <AvatarImage src={user.avatar} alt={user.name} />
+                  <AvatarFallback className="text-xs">{user.name[0]}</AvatarFallback>
+                </Avatar>
+
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center justify-between gap-2 mb-1">
+                    <h4 className="font-medium text-sm text-foreground truncate">{user.name}</h4>
+                    <span className="text-xs text-muted-foreground font-medium whitespace-nowrap">{user.points} pts</span>
+                  </div>
+                  
+                  {/* Stats */}
+                  <div className="grid grid-cols-3 gap-4">
+                    <div className="space-y-1">
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs text-muted-foreground">Activity</span>
+                        <span className="text-xs font-medium">{user.jobActivity}%</span>
+                      </div>
+                      <Progress value={user.jobActivity} className="h-1" />
+                    </div>
+                    <div className="space-y-1">
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs text-muted-foreground">Coding</span>
+                        <span className="text-xs font-medium">{user.codingStats}%</span>
+                      </div>
+                      <Progress value={user.codingStats} className="h-1" />
+                    </div>
+                    <div className="space-y-1">
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs text-muted-foreground">Badges</span>
+                        <span className="text-xs font-medium">{user.achievements}</span>
+                      </div>
+                      <Progress value={(user.achievements / 15) * 100} className="h-1" />
+                    </div>
                   </div>
                 </div>
               </motion.div>
-            );
-          })}
-        </div>
-
-        {/* Rest of the Leaderboard (4-10) */}
-        <div className="space-y-4">
-          {leaderboardUsers.slice(3).map((user, index) => (
-            <motion.div
-              key={user.id}
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: (index + 3) * 0.1 }}
-              className={`flex items-center gap-4 p-4 rounded-lg border ${getRankColor(user.rank)} hover:shadow-md transition-shadow`}
-            >
-              <div className="flex items-center justify-center w-8">
-                {getRankIcon(user.rank)}
-              </div>
-
-              <Avatar className="h-10 w-10">
-                <AvatarImage src={user.avatar} alt={user.name} />
-                <AvatarFallback>{user.name[0]}</AvatarFallback>
-              </Avatar>
-
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2 mb-1">
-                  <h3 className="font-medium text-foreground truncate">{user.name}</h3>
-                  <span className="text-sm text-muted-foreground">{user.points} pts</span>
-                </div>
-
-                {user.badges.length > 0 && (
-                  <div className="flex gap-1 mb-2">
-                    <Badge variant="default" className="text-xs bg-primary text-primary-foreground">
-                      {user.badges[0]}
-                    </Badge>
-                  </div>
-                )}
-
-                <div className="grid grid-cols-3 gap-2 text-xs">
-                  <div>
-                    <div className="flex justify-between mb-1">
-                      <span className="text-muted-foreground">Activity</span>
-                      <span>{user.jobActivity}%</span>
-                    </div>
-                    <Progress value={user.jobActivity} className="h-1" />
-                  </div>
-                  <div>
-                    <div className="flex justify-between mb-1">
-                      <span className="text-muted-foreground">Coding</span>
-                      <span>{user.codingStats}%</span>
-                    </div>
-                    <Progress value={user.codingStats} className="h-1" />
-                  </div>
-                  <div>
-                    <div className="flex justify-between mb-1">
-                      <span className="text-muted-foreground">Achievements</span>
-                      <span>{user.achievements}</span>
-                    </div>
-                    <Progress value={(user.achievements / 15) * 100} className="h-1" />
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-
-        <div className="mt-6 p-4 bg-primary/5 rounded-lg">
-          <div className="flex items-center gap-2 mb-2">
-            <Trophy className="h-4 w-4 text-primary" />
-            <span className="font-medium text-primary">Your Rank: #3</span>
+            ))}
           </div>
-          <p className="text-sm text-muted-foreground">
-            Keep applying to jobs and completing challenges to climb the leaderboard!
-          </p>
+        </div>
+
+        {/* Your Rank Card */}
+        <div className="pt-2">
+          <Card className="border-primary/30 bg-gradient-to-br from-primary/5 to-primary/10">
+            <CardContent className="p-4">
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-primary/20 rounded-lg">
+                  <Trophy className="h-5 w-5 text-primary" />
+                </div>
+                <div className="flex-1">
+                  <h4 className="font-semibold text-sm text-foreground mb-0.5">Your Rank: #3</h4>
+                  <p className="text-xs text-muted-foreground">
+                    Keep applying and completing challenges to climb higher!
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </CardContent>
     </Card>

@@ -1,147 +1,177 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import { BookOpen, Clock, Star, Play, CheckCircle } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
-import { Button } from '@/components/ui/button';
-import { learningPaths, LearningPath, Course } from '@/data/dashboard';
+import { learningPaths, type LearningPath, type Course } from '@/data/dashboard';
 
-const LearningHub: React.FC = () => {
+const LearningHub = () => {
   const getDifficultyColor = (difficulty: LearningPath['difficulty']) => {
     switch (difficulty) {
       case 'Beginner':
-        return 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400 border-green-200 dark:border-green-800';
+        return 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400 border-emerald-300 dark:border-emerald-700';
       case 'Intermediate':
-        return 'bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-400 border-blue-200 dark:border-blue-800';
+        return 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400 border-blue-300 dark:border-blue-700';
       case 'Advanced':
-        return 'bg-orange-100 text-orange-800 dark:bg-orange-900/20 dark:text-orange-400 border-orange-200 dark:border-orange-800';
+        return 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400 border-amber-300 dark:border-amber-700';
       case 'Expert':
-        return 'bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-400 border-red-200 dark:border-red-800';
+        return 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-400 border-rose-300 dark:border-rose-700';
       default:
-        return 'bg-gray-100 text-gray-800 dark:bg-gray-900/20 dark:text-gray-400 border-gray-200 dark:border-gray-800';
+        return 'bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-400 border-gray-300 dark:border-gray-700';
     }
   };
 
-  const getProgressIcon = (progress: number) => {
-    if (progress >= 100) return <CheckCircle className="h-4 w-4 text-green-500" />;
-    if (progress >= 50) return <Play className="h-4 w-4 text-blue-500" />;
-    return <Clock className="h-4 w-4 text-yellow-500" />;
+  const getProgressStatus = (progress: number) => {
+    if (progress >= 100) return { icon: <CheckCircle className="h-3.5 w-3.5" />, text: 'Completed', color: 'text-emerald-600 dark:text-emerald-400' };
+    if (progress >= 50) return { icon: <Play className="h-3.5 w-3.5" />, text: 'In Progress', color: 'text-blue-600 dark:text-blue-400' };
+    return { icon: <Clock className="h-3.5 w-3.5" />, text: 'Not Started', color: 'text-amber-600 dark:text-amber-400' };
   };
 
   return (
-    <Card className="card-elevated">
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2">
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="flex items-center gap-3">
+        <div className="p-2 bg-primary/10 rounded-lg">
           <BookOpen className="h-5 w-5 text-primary" />
-          Learning Hub
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="space-y-6">
-          {learningPaths.map((path, index) => (
+        </div>
+        <div>
+          <h2 className="text-xl font-bold text-foreground">Learning Hub</h2>
+          <p className="text-sm text-muted-foreground">Enhance your skills with curated learning paths</p>
+        </div>
+      </div>
+
+      {/* Learning Path Cards - Horizontal Layout */}
+      <div className="space-y-4">
+        {learningPaths.map((path, index) => {
+          const progressStatus = getProgressStatus(path.progress);
+          
+          return (
             <motion.div
               key={path.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1, duration: 0.5 }}
-              className="border border-border rounded-lg overflow-hidden hover:shadow-lg transition-shadow"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: index * 0.1, duration: 0.4 }}
             >
-              <div className="p-6 bg-gradient-to-r from-primary/5 to-secondary/5">
-                <div className="flex items-start justify-between mb-4">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-2">
-                      <h3 className="text-xl font-bold text-foreground">{path.title}</h3>
-                      <Badge className={getDifficultyColor(path.difficulty)}>
-                        {path.difficulty}
-                      </Badge>
-                    </div>
-                    <p className="text-muted-foreground mb-3">{path.description}</p>
-                    <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                      <div className="flex items-center gap-1">
-                        <Clock className="h-4 w-4" />
-                        {path.duration}
-                      </div>
-                      <div className="flex items-center gap-1">
-                        {getProgressIcon(path.progress)}
-                        <span>{path.progress}% Complete</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex-shrink-0">
-                    <Progress value={path.progress} className="w-24 h-2" />
-                  </div>
-                </div>
-              </div>
-
-              <div className="p-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <h4 className="font-medium mb-3 flex items-center gap-2">
-                      <Star className="h-4 w-4 text-yellow-500" />
-                      Key Skills
-                    </h4>
-                    <div className="flex flex-wrap gap-2">
-                      {path.skills.map((skill) => (
-                        <Badge key={skill} variant="outline" className="text-xs">
-                          {skill}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div>
-                    <h4 className="font-medium mb-3">Recommended Courses</h4>
-                    <div className="space-y-2">
-                      {path.courses.slice(0, 2).map((course: Course) => (
-                        <div key={course.id} className="flex items-center justify-between p-2 bg-muted/50 rounded">
-                          <div className="flex items-center gap-2">
-                            <div className="w-2 h-2 bg-primary rounded-full"></div>
-                            <span className="text-sm font-medium">{course.title}</span>
-                            <span className="text-xs text-muted-foreground">({course.platform})</span>
-                          </div>
-                          <div className="text-xs text-right">
-                            <div className="flex items-center gap-1 mb-1">
-                              <Star className="h-3 w-3 fill-current text-yellow-500" />
-                              <span>{course.rating}</span>
-                            </div>
-                            <span className="text-muted-foreground">{course.duration}</span>
-                          </div>
+              <Card className="overflow-hidden hover:shadow-lg transition-all duration-300 border-border/50 hover:border-primary/30 group">
+                <CardContent className="p-0">
+                  <div className="flex flex-col md:flex-row">
+                    {/* Left Section - Main Info */}
+                    <div className="flex-1 p-4 space-y-3">
+                      {/* Heading */}
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="flex-1">
+                          <h3 className="text-lg font-bold text-foreground group-hover:text-primary transition-colors mb-1">
+                            {path.title}
+                          </h3>
+                          <p className="text-sm text-muted-foreground line-clamp-1">
+                            {path.description}
+                          </p>
                         </div>
-                      ))}
-                      {path.courses.length > 2 && (
-                        <Button variant="ghost" size="sm" className="w-full justify-start">
-                          +{path.courses.length - 2} more courses
-                        </Button>
-                      )}
+                        <Badge className={getDifficultyColor(path.difficulty)} variant="outline">
+                          {path.difficulty}
+                        </Badge>
+                      </div>
+
+                      {/* Progress */}
+                      <div className="flex items-center gap-4">
+                        <div className={`flex items-center gap-1.5 text-xs font-medium ${progressStatus.color}`}>
+                          {progressStatus.icon}
+                          <span>{progressStatus.text}</span>
+                        </div>
+                        <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                          <Clock className="h-3.5 w-3.5" />
+                          <span>{path.duration}</span>
+                        </div>
+                        <div className="flex-1 flex items-center gap-2">
+                          <Progress value={path.progress} className="h-1.5 flex-1" />
+                          <span className="text-xs text-muted-foreground font-medium whitespace-nowrap">{path.progress}%</span>
+                        </div>
+                      </div>
+
+                      {/* Skills */}
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="text-xs font-semibold text-muted-foreground">Skills:</span>
+                        {path.skills.map((skill) => (
+                          <Badge key={skill} variant="outline" className="text-xs px-2 py-0 font-medium">
+                            {skill}
+                          </Badge>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Right Section - Courses */}
+                    <div className="md:w-80 lg:w-96 p-4 bg-muted/20 border-t md:border-t-0 md:border-l border-border/50">
+                      {/* Course Suggestions */}
+                      <div className="space-y-2">
+                        <h4 className="text-xs font-semibold text-foreground uppercase tracking-wide">
+                          Recommended Courses
+                        </h4>
+                        <div className="space-y-1.5">
+                          {path.courses.slice(0, 3).map((course: Course) => (
+                            <div 
+                              key={course.id} 
+                              className="flex items-start gap-2 p-2 rounded bg-background/50 hover:bg-background transition-colors cursor-pointer group/course"
+                            >
+                              <div className="w-1 h-1 bg-primary rounded-full mt-1.5 flex-shrink-0"></div>
+                              <div className="flex-1 min-w-0">
+                                <p className="text-xs font-medium text-foreground group-hover/course:text-primary transition-colors line-clamp-1">
+                                  {course.title}
+                                </p>
+                                <div className="flex items-center gap-1.5 mt-0.5 text-xs text-muted-foreground">
+                                  <span>{course.platform}</span>
+                                  <span>•</span>
+                                  <span>{course.duration}</span>
+                                  <span>•</span>
+                                  <div className="flex items-center gap-0.5">
+                                    <Star className="h-2.5 w-2.5 fill-amber-400 text-amber-400" />
+                                    <span>{course.rating}</span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                          {path.courses.length > 3 && (
+                            <p className="text-xs text-muted-foreground pl-3">
+                              +{path.courses.length - 3} more courses
+                            </p>
+                          )}
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
-
-                <div className="mt-4 flex gap-2">
-                  <Button className="flex-1">
-                    Continue Learning
-                  </Button>
-                  <Button variant="outline" className="flex-1">
-                    View All Courses
-                  </Button>
-                </div>
-              </div>
+                </CardContent>
+              </Card>
             </motion.div>
-          ))}
-        </div>
+          );
+        })}
+      </div>
 
-        <div className="mt-6 p-4 bg-primary/5 rounded-lg border border-primary/20">
-          <div className="flex items-center gap-2 mb-2">
-            <BookOpen className="h-4 w-4 text-primary" />
-            <span className="font-medium text-primary">AI Recommendation</span>
-          </div>
-          <p className="text-sm text-muted-foreground">
-            Based on your resume analysis, we recommend focusing on <strong>System Design</strong> and <strong>Cloud Computing</strong> to improve your job matching score by 25%.
-          </p>
-        </div>
-      </CardContent>
-    </Card>
+      {/* AI Recommendation Card */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.4 }}
+      >
+        <Card className="border-primary/20 bg-gradient-to-br from-primary/5 via-primary/5 to-secondary/5">
+          <CardContent className="p-4">
+            <div className="flex items-start gap-3">
+              <div className="p-2 bg-primary/10 rounded-lg flex-shrink-0">
+                <BookOpen className="h-4 w-4 text-primary" />
+              </div>
+              <div className="flex-1">
+                <h3 className="font-semibold text-sm text-foreground mb-1 flex items-center gap-2">
+                  AI Recommendation
+                  <Badge variant="secondary" className="text-xs">Personalized</Badge>
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  Based on your resume analysis, we recommend focusing on <strong className="text-foreground">System Design</strong> and <strong className="text-foreground">Cloud Computing</strong> to improve your job matching score by 25%.
+                </p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </motion.div>
+    </div>
   );
 };
 
