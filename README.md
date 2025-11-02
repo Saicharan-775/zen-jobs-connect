@@ -54,4 +54,4 @@ This feature bridges the gap between **students, job seekers, and hiring profess
 
 1. **Clone the repository**
    ```bash
-   git clone github.com/Saicharan-775/zen-jobs-connect.git
+   git clone https://github.com/Saicharan-775/zen-jobs-connect.git
