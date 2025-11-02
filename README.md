@@ -1,73 +1,57 @@
-# Welcome to your Lovable project
+# 💼 Job Linker — Your Smart Job Discovery & Talent Hunt Platform
 
-## Project info
+> A modern web platform designed to connect **talent with opportunity** through intelligent job discovery and hiring tools.  
+> Built with **React**, **Supabase**, and **Node.js**, Job Linker helps **job seekers** track applications and **recruiters** discover top candidates effortlessly — all within one ecosystem.
 
-**URL**: https://lovable.dev/projects/fcaa4ca5-7aed-4ed2-927e-9116c95bb250
+---
 
-## How can I edit this code?
+## 🚀 Features
 
-There are several ways of editing your application.
+- 🔍 **Smart Job Discovery** – Search and filter opportunities tailored to your skills, preferences, and career goals.  
+- 🧠 **Personalized Recommendations** – AI-powered job suggestions that evolve with your interests and activity.  
+- 🧾 **Application Tracker** – Manage and monitor your job applications and interview progress seamlessly.  
+- 🔐 **Secure Authentication** – Role-based login for candidates and recruiters using **Supabase Auth**.  
+- ⚡ **Real-Time Updates** – Instant synchronization and notifications powered by **Supabase Realtime Database**.  
+- 📊 **Progress Dashboard** – Visual insights into your application trends, skills readiness, and performance metrics.  
+- 🌟 **Talent Hunt (New!)** – A dedicated feature enabling **recruiters** to discover, shortlist, and connect with **verified candidates** based on skills, projects, and achievements.  
+- 🌐 **Fully Responsive UI** – Optimized for mobile, tablet, and desktop with smooth transitions and quick load times.  
 
-**Use Lovable**
+---
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/fcaa4ca5-7aed-4ed2-927e-9116c95bb250) and start prompting.
+## 🔎 Talent Hunt Feature
 
-Changes made via Lovable will be committed automatically to this repo.
+The **Talent Hunt** module transforms Job Linker from a simple job discovery app into a **two-way talent marketplace**.
 
-**Use your preferred IDE**
+### 👤 For Recruiters
+- Effortlessly **search and filter candidates** by skills, education, experience, or project contributions.  
+- View **detailed candidate profiles**, including their portfolio links, coding achievements, and readiness scores.  
+- Use **shortlisting tools** to build a pipeline of potential hires directly within the platform.  
+- Get **real-time candidate availability** and **activity insights** powered by **Supabase Realtime**.  
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### 💪 For Candidates
+- Gain **visibility** by showcasing verified skills, personal projects, and LeetCode or GitHub stats.  
+- Get discovered by recruiters through **intelligent matching algorithms**.  
+- Maintain privacy and control by managing your **public visibility** and **profile settings**.  
+- Receive **direct interview invites** or **collaboration requests** from verified recruiters.  
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+This feature bridges the gap between **students, job seekers, and hiring professionals**, making the hiring journey faster, more transparent, and data-driven.
 
-Follow these steps:
+---
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+## 🛠️ Tech Stack
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+| Layer | Technologies Used |
+|-------|--------------------|
+| **Frontend** | React.js, Tailwind CSS |
+| **Backend** | Node.js, Supabase |
+| **Database** | Supabase PostgreSQL |
+| **Deployment** | Vercel |
+| **Version Control** | Git & GitHub |
 
-# Step 3: Install the necessary dependencies.
-npm i
+---
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+## ⚙️ Installation & Setup
 
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/fcaa4ca5-7aed-4ed2-927e-9116c95bb250) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+1. **Clone the repository**
+   ```bash
+   git clone github.com/Saicharan-775/zen-jobs-connect.git
